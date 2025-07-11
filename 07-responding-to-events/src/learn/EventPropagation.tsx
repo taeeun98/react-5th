@@ -24,6 +24,8 @@ function EventPropagation() {
   );
 }
 
+
+
 export default EventPropagation;
 
 const styles = {

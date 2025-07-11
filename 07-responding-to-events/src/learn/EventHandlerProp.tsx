@@ -13,7 +13,7 @@ function EventHandlerProp({ onClick, onUpdateMessage }: Props) {
   };
 
 
-  // 컴포넌트 내에서 이벤트 핸들러를 정의해도 도ㅣ지만,
+  // 컴포넌트 내에서 이벤트 핸들러를 정의해도 되지만,
   // onClick 부모에게서 props 으로 핸들러를 받아오는 이유
   // 1. 자식이 이벤트를 발생시켰을때 부모의 요소를 바꾸고자 할떄
   // 2. 똑같은 이벤트를 가진 자식이 많을때

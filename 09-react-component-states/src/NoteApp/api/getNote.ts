@@ -1,6 +1,9 @@
 import notesData from '@/data/notes.json'
 import usersData from '@/data/users.json'
 
+//typeof notesData // => Note[]
+// 배열에서 [number]를 붙이면, 배열의 개별 요소 타입을 뜻함
+
 export type Note = (typeof notesData)[number] & {
     expand?: {
         user: typeof usersData[number]
