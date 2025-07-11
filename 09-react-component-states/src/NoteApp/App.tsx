@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { getNoteList } from "./api/getNote";
+import { getNoteList, type Note } from "./api/getNote";
 import NoteListPage from "./pages/NoteListPage";
 import { ROUTES } from "./routes";
+import NoteDetailPage from "./pages/NoteDetailPage";
+import NoteCreatePage from "./pages/NoteCreatePage";
 
 function NoteApp() {
   const [routeInfo, setRouteInfo] = useState<{
@@ -27,13 +29,26 @@ function NoteApp() {
     // routeInfo 전개해서 넣는 이유는 기본값 설정을 위함
   };
 
+  // 노트 생성 기능
+  const handleCreateNote = (newNoteItem:Note) => {
+    setList([
+      ...list,
+      newNoteItem
+    ]);
+  }
+
+  // 파생상태 (기존의 형태 + 좀더 복잡한 형태를 만든것, 기존 형태에 의존하긴함)
+  const newNoteId = list.length + 1;
+
+
+
   switch (routeInfo.route) {
     case ROUTES.list:
       return <NoteListPage list={list} onChangeRoute={handleChangeRoute} />;
     case ROUTES.detail:
-      return <div>디테일 페이지</div>;
+      return <NoteDetailPage noteId={routeInfo.noteId} onChangeRoute={handleChangeRoute} />;
     case ROUTES.create:
-      return <div>생성 페이지</div>;
+      return <NoteCreatePage newNoteId={newNoteId} onCreate={handleCreateNote} onChangeRoute={handleChangeRoute}/>;
     case ROUTES.edit:
       return <div>관리 페이지</div>;
     default:
