@@ -1,18 +1,44 @@
 import { useState } from "react";
 import { getNoteList } from "./api/getNote";
 import NoteListPage from "./pages/NoteListPage";
+import { ROUTES } from "./routes";
 
 function NoteApp() {
+  const [routeInfo, setRouteInfo] = useState<{
+    route: string;
+    noteId: null | number;
+  }>({
+    route: "list",
+    noteId: null,
+  });
 
   // console.log(getNoteList()); // 모든 노트의 데이터 & user 정보까지 // 관계형 데이터
-
   // const [list, setList] = useState(getNoteList());
   // 콜백으로 연결하면 S 가 매 렌더링 마다 가져오는게 아니라, 처음 딱 한번만 가져옴
   const [list, setList] = useState(() => getNoteList());
 
-  return (
-    <NoteListPage list={list}/>
-  )
+  const handleChangeRoute = (nextRoute: string, pickNoteId: number = 0) => {
+    setRouteInfo({
+      ...routeInfo,
+      route: nextRoute,
+      noteId: pickNoteId ? pickNoteId : routeInfo.noteId,
+    });
+
+    // routeInfo 전개해서 넣는 이유는 기본값 설정을 위함
+  };
+
+  switch (routeInfo.route) {
+    case ROUTES.list:
+      return <NoteListPage list={list} onChangeRoute={handleChangeRoute} />;
+    case ROUTES.detail:
+      return <div>디테일 페이지</div>;
+    case ROUTES.create:
+      return <div>생성 페이지</div>;
+    case ROUTES.edit:
+      return <div>관리 페이지</div>;
+    default:
+      return <div>404 not found</div>;
+  }
 }
 
-export default NoteApp
+export default NoteApp;
