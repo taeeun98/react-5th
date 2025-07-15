@@ -4,6 +4,7 @@ import NoteListPage from "./pages/NoteListPage";
 import { ROUTES } from "./routes";
 import NoteDetailPage from "./pages/NoteDetailPage";
 import NoteCreatePage from "./pages/NoteCreatePage";
+import NoteEditPage from "./pages/NoteEditPage";
 
 function NoteApp() {
   const [routeInfo, setRouteInfo] = useState<{
@@ -30,27 +31,54 @@ function NoteApp() {
   };
 
   // 노트 생성 기능
-  const handleCreateNote = (newNoteItem:Note) => {
-    setList([
-      ...list,
-      newNoteItem
-    ]);
-  }
+  const handleCreateNote = (newNoteItem: Note) => {
+    setList([...list, newNoteItem]);
+  };
+
+  // 노트 수정 함수
+  const handleEditNote = (willEditNote: Note) => {
+    const nextList = list.map((item) =>
+      item.id === willEditNote.id ? willEditNote : item
+    );
+    setList(nextList);
+  };
+
+  // 노트 제거 함수
+  const handleDeleteNote = (willEditNoteId: number) => {
+    const nextList = list.filter((item) => item.id !== willEditNoteId);
+    setList(nextList);
+  };
 
   // 파생상태 (기존의 형태 + 좀더 복잡한 형태를 만든것, 기존 형태에 의존하긴함)
   const newNoteId = list.length + 1;
-
-
 
   switch (routeInfo.route) {
     case ROUTES.list:
       return <NoteListPage list={list} onChangeRoute={handleChangeRoute} />;
     case ROUTES.detail:
-      return <NoteDetailPage noteId={routeInfo.noteId} onChangeRoute={handleChangeRoute} />;
+      return (
+        <NoteDetailPage
+          noteId={routeInfo.noteId}
+          onChangeRoute={handleChangeRoute}
+        />
+      );
     case ROUTES.create:
-      return <NoteCreatePage newNoteId={newNoteId} onCreate={handleCreateNote} onChangeRoute={handleChangeRoute}/>;
+      return (
+        <NoteCreatePage
+          newNoteId={newNoteId}
+          onCreate={handleCreateNote}
+          onChangeRoute={handleChangeRoute}
+        />
+      );
     case ROUTES.edit:
-      return <div>관리 페이지</div>;
+      return (
+        <NoteEditPage
+          noteId={routeInfo.noteId}
+          onChangeRoute={handleChangeRoute}
+          onEdit={handleEditNote}
+          onDelete={handleDeleteNote}
+        />
+      );
     default:
       return <div>404 not found</div>;
   }
