@@ -1,0 +1,68 @@
+.container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+form h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+form hr {
+  margin: 0 auto;
+  width: 80%;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+form label {
+  font-weight: 500;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form input[type="file"] {
+  padding: 0.6rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+form button {
+  padding: 0.75rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+form button:hover {
+  background: #222;
+}
+
+form p {
+  font-size: 0.9rem;
+  text-align: center;
+  color: red;
+  margin-top: 1rem;
+}

@@ -1,0 +1,43 @@
+.container {
+  height: calc(100vh - 160px);
+  background-color: white;
+  color: #404040;
+
+  h2 {
+    font-size: 24px;
+  }
+
+  > div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    text-align: center;
+
+    form {
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.3rem 1rem;
+      }
+
+      > div {
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+    }
+
+    button {
+      border: none;
+      padding: 0.5rem 1.5rem;
+      width: 100%;
+      background-color: black;
+      color: #fff;
+      border-radius: 4px;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}

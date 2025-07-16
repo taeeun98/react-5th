@@ -27,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../12-react-with-supabase/src/api"]
+  "include": ["src"]
 }

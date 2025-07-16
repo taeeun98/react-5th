@@ -1,0 +1,78 @@
+
+
+.container{
+  max-width: 720px;
+  height: calc(100vh - 160px);
+  background-color: white;
+  color: #404040;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+  text-align: center;
+
+  > div{
+    display: flex;
+    flex-direction: column;
+    gap:2rem
+  }
+
+  > div:last-child{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    > button{
+      cursor: pointer;
+    }
+  }
+}
+
+
+.image {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.priceBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.price {
+  /* text-decoration: line-through; */
+  color: #999;
+  font-size: 1.3rem;
+}
+
+.sale {
+  color: crimson;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.finalPrice {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #000;
+}
+
+button{
+  margin-top: 15rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
