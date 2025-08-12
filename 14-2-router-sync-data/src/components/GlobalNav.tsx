@@ -1,13 +1,15 @@
+import { routes } from "@/router/routes"
+import extractNavItem from "@/uitls/extractNavItem"
 import { NavLink } from "react-router"
 
-const navList = [
-    {to:'/', label:'Home'},
-    {to:'/about', label:'About'},
-    {to:'/auth/login', label:'Login'},
-    {to:'/auth/register', label:'Register'},
-    {to:'/concerts', label:'Concerts'},
-    {to:'/concerts/trending', label:'Trending'},
-]
+// const navList = [
+//     {to:'/', label:'Home'},
+//     {to:'/about', label:'About'},
+//     {to:'/auth/login', label:'Login'},
+//     {to:'/auth/register', label:'Register'},
+//     {to:'/concerts', label:'Concerts'},
+//     {to:'/concerts/trending', label:'Trending'},
+// ]
 
 function GlobalNav() {
 
@@ -16,6 +18,8 @@ function GlobalNav() {
         gap: '1rem',
         listStyle: 'none'
     }
+
+    const navList = extractNavItem(routes.routes)
 
     /*
         Link, NavLink 언제 사용하는가?
@@ -31,9 +35,9 @@ function GlobalNav() {
     <nav>
         <ul style={S}>
             {
-                navList.map(({to, label})=>(
-                    <li key={to}>
-                        <NavLink style={({isActive}: { isActive: boolean }) => ({color:isActive ? 'blue' : 'black'})} to={to}>{label}</NavLink>
+                navList.map(({path, label})=>(
+                    <li key={path}>
+                        <NavLink style={({isActive}: { isActive: boolean }) => ({color:isActive ? 'blue' : 'black'})} to={path}>{label}</NavLink>
                     </li>
                 ))
             }
@@ -42,4 +46,5 @@ function GlobalNav() {
 
   )
 }
+
 export default GlobalNav
