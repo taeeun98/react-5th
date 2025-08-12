@@ -1,0 +1,130 @@
+.container {
+  flex: 1;
+  padding: 2rem;
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    li {
+      position: relative;
+      max-width: 30vw;
+
+      a {
+        display: inline-block;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* 원근감. 애니메이션 효과에 필수 이 값이 작아질수록 거리가 가까워짐 */
+  perspective: 2500px;
+
+  p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5px;
+    background-color: #fff;
+    padding: 0.3rem;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .4s;
+  }
+}
+
+ .popup {
+
+    &:hover .wrapper,
+    &:focus & .wrapper {
+      transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+      box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    }
+
+    &:hover .wrapper::before,
+    &:focus & .wrapper::before,
+    .wrapper::after {
+      opacity: 1;
+    }
+
+    &:hover .wrapper::after,
+    &:focus & .wrapper::after {
+      height: 120px;
+    }
+
+    &:hover .title,
+    &:focus & .title {
+      transform: translate3d(0%, -50px, 100px);
+    }
+
+    &:hover .character,
+    &:focus & .character {
+      opacity: 1;
+      transform: translate3d(0%, -10%, 100px);
+    }
+  }
+
+   .wrapper {
+    transition: all 0.5s;
+    /* position: absolute; */
+    width: 100%;
+    z-index: -1;
+
+    &::before,
+    &::after {
+      content: "";
+      opacity: 0;
+      width: 100%;
+      height: 80px;
+      transition: all 0.5s;
+      position: absolute;
+      left: 0;
+    }
+
+    &::before {
+      top: 0;
+      height: 100%;
+      background-image: linear-gradient(to top,
+          transparent 46%,
+          rgba(12, 13, 19, 0.5) 68%,
+          rgba(12, 13, 19) 97%);
+    }
+
+    &::after {
+      bottom: 0;
+      opacity: 1;
+      background-image: linear-gradient(to bottom,
+          transparent 46%,
+          rgba(12, 13, 19, 0.5) 68%,
+          rgba(12, 13, 19) 97%);
+    }
+  }
+
+  .character{
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s;
+  }
