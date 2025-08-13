@@ -24,9 +24,10 @@ const b = Root
 // import NotFound from "@/pages/NotFound";
 import { loader as trendingLoader } from "@/pages/Concerts/Trending";
 import { lazy } from "react";
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter, Outlet, redirect } from "react-router";
 
 // 코드 스플릿팅 (해당 페이지에 들어갔을때만 렌더링 되도록)
+//React의 코드 스플리팅(Code Splitting) + 동적 임포트(Dynamic Import)
 const Root = lazy(() => import("@/pages"));
 const Home = lazy(() => import("@/pages/Home"));
 const About = lazy(() => import("@/pages/About"));
@@ -42,6 +43,7 @@ const City = lazy(() => import("@/pages/Concerts/City"));
 const UserDetail = lazy(() => import("@/pages/User/UserDetail"));
 
 const NotFound = lazy(() => import("@/pages/NotFound"));
+const NewUser = lazy(() => import("@/pages/User/NewUser"));
 
 // createBrowserRouter에 붙는 애들이 RouteObject 라고 부름
 export const routes = createBrowserRouter([
@@ -103,6 +105,15 @@ export const routes = createBrowserRouter([
             handle: { label: "Trending", showInNav: true },
             HydrateFallback: () => <div>데이터 로딩 중 ... </div>,
             loader: trendingLoader,
+            // 이런식으로 쓸수도 있음 근데 로더를 더 많이 씀
+            // lazy: async () => {
+            //   const mod = await import("@/pages/Concerts/Trending");
+
+            //   return {
+            //     Component: mod.default, //export default 된 Component
+            //     loader: mod.loader, // named export loader
+            //   };
+            // },
           },
         ],
       },
@@ -124,6 +135,7 @@ export const routes = createBrowserRouter([
 
         // loader는 리액트 라우터가 알아서 실행하는데,
         // 해당 컴포넌트 페이지에 들어가기 전! 에 실행함
+        // 데이터 패치 전에 미리 로더로 스켈레톤 보여주기 (객체로 만들기)
         loader: async ({ params }) => {
           // 패치 될때까지 기다리기
           //   const res = await fetch(
@@ -140,6 +152,32 @@ export const routes = createBrowserRouter([
               return res.json();
             }),
           };
+        },
+      },
+
+      {
+        path: "user/new",
+        Component: NewUser,
+        // NewUser 안의 submit 실행될떄 action 이 실행된다
+        action: async ({ request }) => {
+          // request 를 파싱해서 formData 객체로 만든다
+          // Fetch API의 Request 객체
+          // → request.formData()는 body를 한 번 읽어서 FormData로 변환해줌.
+          // Promise<FormData> 를 반환하기 떄문에 await 사용
+          const formData = await request.formData();
+          // input 태그의 name 속성을 읽어오는 것
+          const name = formData.get("name") as string;
+          const email = formData.get("email") as string;
+
+          console.log("request", request);
+          console.log(name, email);
+
+          // const {data, error} = await supabase.from('user').insert([{name, email}])
+          // if(error) {
+          //   throw new Error('...')
+          // }
+
+          return redirect("/users");
         },
       },
     ],
