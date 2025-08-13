@@ -1,0 +1,34 @@
+/* @import "tailwindcss"; */
+
+/* 
+    위 처럼 한번에 다 가져와도 되지만 아래처럼 뽑아 써도 됨
+    @layer = css를 그룹핑을 하고, 아래 코드처럼 써서 우선순위를 강제할 수 있음
+    마지막이 제일 우선순위가 높음!
+    */
+@layer theme, base, components, utilities;
+
+/* 여기서 layer() 에 쓰는건 네임스페이스 */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/*
+  theme 디자인 시스템 (디자인 토큰)
+  프로젝트 전반에 사용될 디자인 토큰(색상, 간격, 그래데이션, 브레이크 포인트) CSS 커스텀 프로퍼티로 한 번에 선언
+*/
+@theme {
+
+}
+
+/*
+  base  reset.css
+  base에서 정의한 값은 utilities 값보다 약하므로 덮어쓰게 됨.
+*/
+@layer base {
+}
+
+/*
+  utilities - Tailwind V4의 기능 - 단일 목적의 유틸리티를 정의하는 문법
+*/
+@utility {
+}
