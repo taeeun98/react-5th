@@ -13,11 +13,21 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 /*
+왜 theme base utility 로 나눠서 작업하냐 ?
+=> 관심사의 분리. 개발의 기본
+=> 길어지면 파일도 나눠야함
+*/
+
+/*
   theme 디자인 시스템 (디자인 토큰)
   프로젝트 전반에 사용될 디자인 토큰(색상, 간격, 그래데이션, 브레이크 포인트) CSS 커스텀 프로퍼티로 한 번에 선언
 */
 @theme {
-
+  --color-mint-500: oklch(0.72 0.11 178);
+  /* --breakpoint-sm: 500px;
+  --spacing-sm: 1rem;
+  --spacing-m: 2rem;
+  --spacing-l: 3rem; */
 }
 
 /*
@@ -25,10 +35,62 @@
   base에서 정의한 값은 utilities 값보다 약하므로 덮어쓰게 됨.
 */
 @layer base {
+  a {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+  h2 {
+    font-size: var(--text-xl);
+  }
+  h3 {
+    font-size: var(--text-lg);
+  }
 }
 
 /*
   utilities - Tailwind V4의 기능 - 단일 목적의 유틸리티를 정의하는 문법
+  재사용이 많이 될 것 같은 단일 css 속성을 정의
 */
-@utility {
+
+/* 여기서  highlight 가 클래스 명이 됨 */
+@utility highlight {
+  background-color: red;
+  font-size: 2rem;
+  color: white;
+  padding: 1rem;
+}
+
+/* 여러 속성을 묶는 재사용 컴포넌트 클래스 정의 */
+@layer components {
+  .card {
+    color: orange;
+    background-color: dodgerblue;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+}
+
+
+/*
+  css 앞에 @apply 붙이게 되면 사용자 지정이 아닌, 기본 테일윈드 css를 사용할 수 있다
+  Tailwind 스럽게 조합
+*/
+@layer components {
+  ._card {
+    @apply rounded-xl bg-mint-500 text-white;
+    h2 {
+      @apply text-xl font-semibold
+    }
+  }
+}
+
+
+body {
+  background-color: #272746;
 }
