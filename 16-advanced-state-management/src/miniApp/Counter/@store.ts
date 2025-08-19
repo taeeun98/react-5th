@@ -41,7 +41,7 @@ export const useCountStore = create<Store>()((set, _get, store) => {
   const decrement = () => {
     set(({ count, step, min }) => {
       let nextCount = count - step;
-      if (nextCount >= min) nextCount = min;
+      if (nextCount <= min) nextCount = min;
       return { count: nextCount };
     });
   };
@@ -58,7 +58,7 @@ export const useCountStore = create<Store>()((set, _get, store) => {
     count: 0,
     step: 1,
     min: 0,
-    max: 0,
+    max: 10,
     increment,
     decrement,
     setStep,
