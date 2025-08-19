@@ -1,0 +1,57 @@
+/*  
+
+    tailwind 의 변수는 런타임에 브라우저가 해석한다.
+    그래서 .module.css 는 사용시점이 애매하다.
+    일반 css 는 상관없음
+
+
+    color: red; 이건 상관없고
+    @apply text-red-400 파일은 자신의 파일 안에 @theme가 없다고 간주해서 안됨
+    전역 파일에만 정의되어 있어서 tailwind가 인식하지 못함
+
+
+
+    1. 파일 모듈 상단에 css import 하기
+    @import 'tailwindcss/theme.css' layer(theme)
+    @import '@/styles/_theme.css'
+
+    2. 변수만 직접 추출해서 작성
+    color: var(--color-accent)
+    border-radius: var(--spacing-sm)
+*/
+
+
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import '@/styles/_theme.css';
+
+
+
+.component{
+  @apply inline-flex items-center border border-solid rounded-sm border-accent;
+  /* color:var(--color-accent); */
+  /* border-radius: var(--spacing-sm); */
+  /* color:red; */
+}
+
+.component .output{
+  @apply select-none text-sm font-light text-center text-accent;
+  inline-size: 2rem;
+}
+
+
+.component .group{
+  @apply inline-flex items-center;
+  flex-flow:column; /* flex-col */
+}
+
+
+.component .button{
+  @apply select-none text-[#999] text-xs bg-transparent opacity-75 p-0 border-0;
+  block-size:14px;
+  inline-size:14px;
+}
+
+.component .button:hover:not(:disabled){
+  @apply opacity-100 bg-[#ededed] text-accent;
+}
